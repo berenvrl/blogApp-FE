@@ -1,38 +1,34 @@
 //Login to App
-Cypress.Commands.add("login", ({ username, password }) => {
-  cy.request("POST", "http://localhost:3003/api/login", {
+Cypress.Commands.add('login', ({ username, password }) => {
+  cy.request('POST', 'http://localhost:3003/api/login', {
     username,
     password,
   }).then(({ body }) => {
-    localStorage.setItem("loggedUserBlogsApp", JSON.stringify(body));
-    cy.visit("http://localhost:5174");
-  });
-});
+    localStorage.setItem('loggedUserBlogsApp', JSON.stringify(body))
+    cy.visit('http://localhost:5174')
+  })
+})
 
 //Create a blog
-Cypress.Commands.add("createBlog", ({ title,author,url,likes }) => {
+Cypress.Commands.add('createBlog', ({ title, author, url, likes }) => {
   cy.request({
-    url: "http://localhost:3003/api/blogs",
-    method: "POST",
+    url: 'http://localhost:3003/api/blogs',
+    method: 'POST',
     body: { title, author, url, likes },
     headers: {
       Authorization: `Bearer ${
-        JSON.parse(localStorage.getItem("loggedUserBlogsApp")).token
+        JSON.parse(localStorage.getItem('loggedUserBlogsApp')).token
       }`,
     },
   })
-  cy.visit("http://localhost:5174");
-});
-
-
-
-
+  cy.visit('http://localhost:5174')
+})
 
 // Cypress.Commands.add('updateLike', ({id, obj})=>{
 //   cy.request({
 //     url:`http://localhost:3003/api/blogs/${id}`,
 //     method:"PUT",
-//     headers: { 
+//     headers: {
 //       Authorization: `Bearer ${
 //         JSON.parse(localStorage.getItem("loggedUserBlogsApp")).token
 //       }`,
@@ -42,7 +38,6 @@ Cypress.Commands.add("createBlog", ({ title,author,url,likes }) => {
 //   cy.visit("http://localhost:5173");
 
 // })
-
 
 // ***********************************************
 // This example commands.js shows you how to
