@@ -1,14 +1,16 @@
-const NotificationBar = ({ message, errorsituation }) => {
-    if (message === null) {
-        return null
-    }
-    const classname= errorsituation ? 'error':'notification'
+import { useSelector } from "react-redux"
+import { Alert } from "react-bootstrap"
 
-    return (
-        <div className={classname}>
-            <p>{message}</p>
-        </div>
-    )
+const NotificationBar = () => {
+  const notification = useSelector(state => state.notification)
+  //console.log(notification)
+
+  return (
+    <div >
+      <Alert variant={
+        notification.color && (notification.color === 'red' ? 'danger':'success')}>{notification.message}</Alert>
+    </div>
+  )
 }
 
 export default NotificationBar

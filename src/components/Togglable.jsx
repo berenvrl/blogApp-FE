@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types'
 import { useState, forwardRef, useImperativeHandle } from 'react'
+import PropTypes from 'prop-types'
+import Button from './Button'
 
 const Togglable = forwardRef((props, refs) => {
     const [visible, setVisible] = useState(false)
@@ -8,7 +9,7 @@ const Togglable = forwardRef((props, refs) => {
     const showWhenVisible = { display: visible ? '' : 'none' }
 
     const toggleVisibility = () => {
-        setVisible(!visible)
+      setVisible(!visible)
     }
 
     //makes its toggleVisibility function available outside of the component
@@ -19,15 +20,17 @@ const Togglable = forwardRef((props, refs) => {
     })
 
     return (
-        <div>
-            <div style={hideWhenVisible}>
-                <button className='togglebtn' onClick={toggleVisibility}>{props.buttonLabel}</button>
-            </div>
-            <div style={showWhenVisible} className='togglableContent'>
-                {props.children}
-                <button onClick={toggleVisibility}>{props.buttonLabel2}</button>
-            </div>
+      <div>
+        <div style={hideWhenVisible}>
+          <Button className="togglebtn" onClick={toggleVisibility}>
+            {props.buttonLabel}
+          </Button>
         </div>
+        <div style={showWhenVisible} className="togglableContent">
+          {props.children}
+          <Button onClick={toggleVisibility}>{props.buttonLabel2}</Button>
+        </div>
+      </div>
     )
 })
 
